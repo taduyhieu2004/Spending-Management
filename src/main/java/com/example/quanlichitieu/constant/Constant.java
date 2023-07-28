@@ -22,4 +22,10 @@ public class Constant {
     public static final Integer BAD_REQUEST = 400;
     public static final Integer INTERNAL_SERVER_ERROR = 500;
   }
+  public static class MessageException {
+    public static final String CREATE_TAG_FINANCE_SUCCESS = "com.example.quanlichitieu.controller.TagFinanceController.create";
+    public static final String UPDATE_TAG_FINANCE_SUCCESS = "com.example.quanlichitieu.controller.TagFinanceController.update";
+
+  }
+
 }

@@ -1,4 +1,99 @@
 package com.example.quanlichitieu.controller;
 
+import com.example.quanlichitieu.dto.ResponseGeneral;
+import com.example.quanlichitieu.dto.response.tagfinance.TagFinancePageResponse;
+import com.example.quanlichitieu.dto.response.tagfinance.TagFinanceResponse;
+import com.example.quanlichitieu.dto.request.TagFinanceRequest;
+import com.example.quanlichitieu.service.MessageService;
+import com.example.quanlichitieu.service.TagFinanceService;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.bind.annotation.*;
+
+import static com.example.quanlichitieu.constant.Constant.CommonConstants.*;
+import static com.example.quanlichitieu.constant.Constant.MessageException.CREATE_TAG_FINANCE_SUCCESS;
+import static com.example.quanlichitieu.constant.Constant.MessageException.UPDATE_TAG_FINANCE_SUCCESS;
+
+@RestController
+@RequestMapping("/api/v1/tag-finance")
+@RequiredArgsConstructor
+@Slf4j
 public class TagFinanceController {
+  private final TagFinanceService tagFinanceService;
+  private final MessageService messageService;
+
+  @PostMapping
+  public ResponseGeneral<TagFinanceResponse> create(
+        @RequestBody TagFinanceRequest request,
+        @RequestHeader(name = LANGUAGE, defaultValue = DEFAULT_LANGUAGE) String language
+  ) {
+
+    log.info("(create) request: {}", request);
+    return ResponseGeneral.ofCreated(
+          messageService.getMessage(CREATE_TAG_FINANCE_SUCCESS, language),
+          tagFinanceService.create(request)
+    );
+  }
+
+  @PutMapping("{id}")
+  public ResponseGeneral<TagFinanceResponse> update(
+        @PathVariable int id,
+        @RequestBody TagFinanceRequest request,
+        @RequestHeader(name = LANGUAGE, defaultValue = DEFAULT_LANGUAGE) String language
+  ) {
+
+    log.info("(update) request:{} ", request);
+    return ResponseGeneral.ofSuccess(
+          messageService.getMessage(UPDATE_TAG_FINANCE_SUCCESS, language),
+          tagFinanceService.update(request, id)
+    );
+  }
+
+  @DeleteMapping("{id}")
+  public ResponseGeneral<Void> delete(
+        @PathVariable int id,
+        @RequestHeader(name = LANGUAGE, defaultValue = DEFAULT_LANGUAGE) String language
+  ) {
+
+    log.info("(delete) id :{}", id);
+    tagFinanceService.delete(id);
+
+    return ResponseGeneral.ofSuccess(
+          messageService.getMessage(SUCCESS, language)
+    );
+  }
+
+  @GetMapping("{id}")
+  public ResponseGeneral<TagFinanceResponse> details(
+        @PathVariable int id,
+        @RequestHeader(name = LANGUAGE, defaultValue = DEFAULT_LANGUAGE) String language
+  ) {
+
+    log.info("(details) id: " + id);
+
+    return ResponseGeneral.ofSuccess(
+          messageService.getMessage(SUCCESS, language),
+          tagFinanceService.details(id)
+    );
+  }
+
+  @GetMapping
+  public ResponseGeneral<TagFinancePageResponse> list(
+        @RequestParam(name = "keyword", required = false) String keyword,
+        @RequestParam(name = "size", defaultValue = "10") int size,
+        @RequestParam(name = "page", defaultValue = "0") int page,
+        @RequestParam(name = "all", defaultValue = "false", required = false) boolean isAll,
+        @RequestHeader(name = LANGUAGE, defaultValue = DEFAULT_LANGUAGE) String language
+  ) {
+
+    log.info("(list) keyword: {}, size: {}, page: {}, isAll: {}", keyword, size, page, isAll);
+
+    return ResponseGeneral.ofSuccess(
+          messageService.getMessage(SUCCESS, language),
+          tagFinanceService.list(keyword, size, page, isAll)
+    );
+
+  }
+
+
 }
