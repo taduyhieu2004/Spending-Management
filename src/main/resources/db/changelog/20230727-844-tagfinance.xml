@@ -6,20 +6,20 @@
 
     <changeSet id="20230727-001" author="DuyHieu" runOnChange="true">
         <createTable tableName="tag_finances">
-            <column name="id" type="INT">
+            <column name="id" type="BIGINT" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="name" type="varchar(255)"/>
-
             <column name="description" type="varchar(255)"/>
-
-            <column name="created_by" type="INT"/>
-
+            <column name="created_by" type="BIGINT"/>
             <column name="created_at" type="varchar(255)"/>
-
             <column name="last_updated_by" type="varchar(255)"/>
-
             <column name="last_updated_at" type="varchar(255)"/>
         </createTable>
+        <addForeignKeyConstraint baseColumnNames="created_by"
+                                 baseTableName="tag_finances"
+                                 constraintName="fk_tag_finances_user"
+                                 referencedColumnNames="id"
+                                 referencedTableName="users"/>
     </changeSet>
 </databaseChangeLog>
