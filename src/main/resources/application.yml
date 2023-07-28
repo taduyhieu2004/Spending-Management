@@ -1,0 +1,9 @@
+spring:
+  application:
+    name: ${APPLICATION_NAME:spending-management}
+  profiles:
+    active:
+      - dev
+      - dev-local
+  liquibase:
+    change-log: classpath:db/master.xml
