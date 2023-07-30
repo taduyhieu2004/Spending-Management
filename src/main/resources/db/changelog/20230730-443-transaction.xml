@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+
+    <changeSet id="20230727-003" author="DuyHieu" runOnChange="true">
+        <createTable tableName="transactions">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="varchar(255)"/>
+            <column name="description" type="varchar(255)"/>
+            <column name="title" type="varchar(255)"/>
+            <column name="amount" type="Double"/>
+            <column name="tag_id" type="BIGINT"/>
+            <column name="created_by" type="BIGINT"/>
+            <column name="created_at" type="varchar(255)"/>
+            <column name="last_updated_by" type="varchar(255)"/>
+            <column name="last_updated_at" type="varchar(255)"/>
+        </createTable>
+        <addForeignKeyConstraint baseColumnNames="created_by"
+                                 baseTableName="transactions"
+                                 constraintName="fk_transactions_user"
+                                 referencedColumnNames="id"
+                                 referencedTableName="users"/>
+        <addForeignKeyConstraint baseColumnNames="tag_id"
+                                 baseTableName="transactions"
+                                 constraintName="fk_transactions_tag_finances"
+                                 referencedColumnNames="id"
+                                 referencedTableName="tag_finances"/>
+    </changeSet>
+</databaseChangeLog>
