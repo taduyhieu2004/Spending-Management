@@ -11,7 +11,7 @@ import lombok.Setter;
 @Setter
 @Entity
 @Table(name = "transactions")
-@AllArgsConstructor
+@AllArgsConstructor(staticName = "of")
 @NoArgsConstructor
 public class Transaction extends BaseEntityWithUpdater {
   @Id
@@ -22,4 +22,16 @@ public class Transaction extends BaseEntityWithUpdater {
   private String description;
   private double amount;
   private int tagId;
+
+  public static Transaction from(
+        String name,
+        String title,
+        String description,
+        double amount,
+        int tagId
+  ) {
+    return Transaction.of(0, name, title, description, amount, tagId);
+  }
 }
+
+

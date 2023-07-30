@@ -3,7 +3,9 @@ package com.example.quanlichitieu.configuration;
 
 import com.example.quanlichitieu.entity.Transaction;
 import com.example.quanlichitieu.facade.TagFinanceFacadeService;
+import com.example.quanlichitieu.facade.TransactionFacadeService;
 import com.example.quanlichitieu.facade.impl.TagFinanceFacadeServiceImpl;
+import com.example.quanlichitieu.facade.impl.TransactionFacadeServiceImpl;
 import com.example.quanlichitieu.repository.TagFinanceRepository;
 import com.example.quanlichitieu.repository.TransactionRepository;
 import com.example.quanlichitieu.repository.UserRepository;
@@ -47,6 +49,15 @@ public class SpendingManagementConfiguration {
   @Bean
   public TransactionService transactionService(TransactionRepository repository) {
     return new TransactionServiceImpl(repository);
+  }
+
+  @Bean
+  public TransactionFacadeService transactionFacadeService(
+        TransactionService transactionService,
+        TagFinanceService tagFinanceService,
+        UserService userService
+  ) {
+    return new TransactionFacadeServiceImpl(transactionService, tagFinanceService, userService);
   }
 
 }

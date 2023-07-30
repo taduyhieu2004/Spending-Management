@@ -45,7 +45,8 @@ public class TagFinanceController {
         @RequestHeader(name = LANGUAGE, defaultValue = DEFAULT_LANGUAGE) String language
   ) {
 
-    log.info("(update) request:{} ", request);
+    log.info("(update) id: {}, request: {}", id, request);
+
     return ResponseGeneral.ofSuccess(
           messageService.getMessage(UPDATE_TAG_FINANCE_SUCCESS, language),
           tagFinanceFacadeService.updateTagFinance(request, id)

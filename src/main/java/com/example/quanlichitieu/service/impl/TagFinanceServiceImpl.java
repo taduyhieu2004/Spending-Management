@@ -36,7 +36,7 @@ public class TagFinanceServiceImpl implements TagFinanceService {
 
   @Override
   public TagFinanceResponse update(TagFinanceRequest request, int id) {
-    log.info("(update) request:{}", request);
+    log.info("(update) id: {}, request: {}", id, request);
 
     TagFinance tagFinance = find(id);
     checkTagFinanceExistsForUpdate(tagFinance, request);

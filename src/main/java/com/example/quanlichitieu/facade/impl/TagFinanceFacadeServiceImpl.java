@@ -29,7 +29,7 @@ public class TagFinanceFacadeServiceImpl implements TagFinanceFacadeService {
 
   @Override
   public TagFinanceResponse updateTagFinance(TagFinanceRequest request, int id) {
-    log.info("(updateTagFinance) request:{} ", request);
+    log.info("(updateTagFinance) id: {}, request: {}", id, request);
 
     TagFinanceResponse tagFinanceResponse = tagFinanceService.update(request, id);
     UserResponse userResponse = userService.details(request.getCreatedBy());
@@ -40,8 +40,8 @@ public class TagFinanceFacadeServiceImpl implements TagFinanceFacadeService {
 
   @Override
   public TagFinancePageResponse listTagFiances(String keyword, int size, int page, boolean isAll) {
-
     log.info("(list) keyword: {}, size: {}, page: {}, isAll: {}", keyword, size, page, isAll);
+
     TagFinancePageResponse response = tagFinanceService.list(keyword, size, page, isAll);
     UserResponse userResponse;
     for (TagFinanceResponse tagFinanceResponse : response.getTagFinanceResponses()) {

@@ -26,6 +26,8 @@ public class Constant {
     public static final String CREATE_TAG_FINANCE_SUCCESS = "com.example.quanlichitieu.controller.TagFinanceController.create";
     public static final String UPDATE_TAG_FINANCE_SUCCESS = "com.example.quanlichitieu.controller.TagFinanceController.update";
 
+    public static final String CREATE_TRANSACTION_SUCCESS = "com.example.quanlichitieu.controller.TransactionController.create";
+    public static final String UPDATE_TRANSACTION_SUCCESS = "com.example.quanlichitieu.controller.TransactionController.update";
   }
 
 }
