@@ -6,6 +6,7 @@
 
     <include file="/changelog/20230726-904-user.xml" relativeToChangelogFile="true"/>
     <include file="/changelog/20230727-844-tagfinance.xml" relativeToChangelogFile="true"/>
+    <include file="/changelog/20230730-443-transaction.xml" relativeToChangelogFile="true"/>
 
 
 </databaseChangeLog>

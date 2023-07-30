@@ -4,10 +4,12 @@ import com.example.quanlichitieu.dto.ResponseGeneral;
 import com.example.quanlichitieu.dto.response.tagfinance.TagFinancePageResponse;
 import com.example.quanlichitieu.dto.response.tagfinance.TagFinanceResponse;
 import com.example.quanlichitieu.dto.request.TagFinanceRequest;
+import com.example.quanlichitieu.facade.TagFinanceFacadeService;
 import com.example.quanlichitieu.service.MessageService;
 import com.example.quanlichitieu.service.TagFinanceService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import static com.example.quanlichitieu.constant.Constant.CommonConstants.*;
@@ -15,37 +17,38 @@ import static com.example.quanlichitieu.constant.Constant.MessageException.CREAT
 import static com.example.quanlichitieu.constant.Constant.MessageException.UPDATE_TAG_FINANCE_SUCCESS;
 
 @RestController
-@RequestMapping("/api/v1/tag-finance")
+@RequestMapping("/api/v1/tag-finances")
 @RequiredArgsConstructor
 @Slf4j
 public class TagFinanceController {
   private final TagFinanceService tagFinanceService;
   private final MessageService messageService;
+  private final TagFinanceFacadeService tagFinanceFacadeService;
 
   @PostMapping
   public ResponseGeneral<TagFinanceResponse> create(
-        @RequestBody TagFinanceRequest request,
+        @RequestBody @Validated TagFinanceRequest request,
         @RequestHeader(name = LANGUAGE, defaultValue = DEFAULT_LANGUAGE) String language
   ) {
 
     log.info("(create) request: {}", request);
     return ResponseGeneral.ofCreated(
           messageService.getMessage(CREATE_TAG_FINANCE_SUCCESS, language),
-          tagFinanceService.create(request)
+          tagFinanceFacadeService.createTagFinance(request)
     );
   }
 
   @PutMapping("{id}")
   public ResponseGeneral<TagFinanceResponse> update(
         @PathVariable int id,
-        @RequestBody TagFinanceRequest request,
+        @RequestBody @Validated TagFinanceRequest request,
         @RequestHeader(name = LANGUAGE, defaultValue = DEFAULT_LANGUAGE) String language
   ) {
 
     log.info("(update) request:{} ", request);
     return ResponseGeneral.ofSuccess(
           messageService.getMessage(UPDATE_TAG_FINANCE_SUCCESS, language),
-          tagFinanceService.update(request, id)
+          tagFinanceFacadeService.updateTagFinance(request, id)
     );
   }
 
@@ -90,7 +93,7 @@ public class TagFinanceController {
 
     return ResponseGeneral.ofSuccess(
           messageService.getMessage(SUCCESS, language),
-          tagFinanceService.list(keyword, size, page, isAll)
+          tagFinanceFacadeService.listTagFiances(keyword, size, page, isAll)
     );
 
   }
