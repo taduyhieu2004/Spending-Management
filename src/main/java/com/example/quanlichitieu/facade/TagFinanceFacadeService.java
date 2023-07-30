@@ -9,5 +9,6 @@ public interface TagFinanceFacadeService {
   TagFinanceResponse createTagFinance(TagFinanceRequest request);
 
   TagFinanceResponse updateTagFinance(TagFinanceRequest request, int id);
-  TagFinancePageResponse listTagFiances (String keyword, int size, int page, boolean isAll);
+
+  TagFinancePageResponse listTagFiances(String keyword, int size, int page, boolean isAll);
 }
