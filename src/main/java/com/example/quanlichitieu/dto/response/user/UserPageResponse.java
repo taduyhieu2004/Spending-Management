@@ -1,4 +1,4 @@
-package com.example.quanlichitieu.dto.response.transaction;
+package com.example.quanlichitieu.dto.response.user;
 
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
@@ -14,7 +14,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor(staticName = "of")
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
-public class TransactionPageResponse {
-  private List<TransactionResponse> transactionResponses;
+public class UserPageResponse {
+  private List<UserResponse> userResponses;
   private int amount;
 }
