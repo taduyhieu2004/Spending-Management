@@ -22,12 +22,23 @@ public class Constant {
     public static final Integer BAD_REQUEST = 400;
     public static final Integer INTERNAL_SERVER_ERROR = 500;
   }
+
   public static class MessageException {
     public static final String CREATE_TAG_FINANCE_SUCCESS = "com.example.quanlichitieu.controller.TagFinanceController.create";
     public static final String UPDATE_TAG_FINANCE_SUCCESS = "com.example.quanlichitieu.controller.TagFinanceController.update";
 
     public static final String CREATE_TRANSACTION_SUCCESS = "com.example.quanlichitieu.controller.TransactionController.create";
     public static final String UPDATE_TRANSACTION_SUCCESS = "com.example.quanlichitieu.controller.TransactionController.update";
+    public static final String CREATE_USER_SUCCESS = "com.example.quanlichitieu.controller.UserController.create";
+    public static final String UPDATE_USER_SUCCESS = "com.example.quanlichitieu.controller.UserController.update";
+
   }
+
+  public static class InvalidMessageException {
+
+    public static final String INVALID_EMAIL = "com.example.quanlichitieu.validation.invalidEmail";
+
+  }
+
 
 }

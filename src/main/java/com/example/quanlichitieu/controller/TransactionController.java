@@ -8,6 +8,7 @@ import com.example.quanlichitieu.entity.Transaction;
 import com.example.quanlichitieu.facade.TransactionFacadeService;
 import com.example.quanlichitieu.service.MessageService;
 import com.example.quanlichitieu.service.TransactionService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
@@ -27,7 +28,7 @@ public class TransactionController {
 
   @PostMapping
   public ResponseGeneral<TransactionResponse> create(
-        @RequestBody TransactionRequest request,
+        @RequestBody @Valid TransactionRequest request,
         @RequestHeader(name = LANGUAGE, defaultValue = DEFAULT_LANGUAGE) String language
   ) {
 
@@ -42,7 +43,7 @@ public class TransactionController {
   @PutMapping("{id}")
   public ResponseGeneral<TransactionResponse> update(
         @PathVariable int id,
-        @RequestBody TransactionRequest request,
+        @RequestBody @Valid TransactionRequest request,
         @RequestHeader(name = LANGUAGE, defaultValue = DEFAULT_LANGUAGE) String language
   ) {
 
