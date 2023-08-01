@@ -1,34 +1,39 @@
 package com.example.quanlichitieu.service.impl;
 
+import com.example.quanlichitieu.dto.request.user.ChangePasswordRequest;
 import com.example.quanlichitieu.dto.request.user.UserRequest;
 import com.example.quanlichitieu.dto.request.user.UserUpdateRequest;
-import com.example.quanlichitieu.dto.response.tagfinance.TagFinanceResponse;
 import com.example.quanlichitieu.dto.response.user.UserPageResponse;
 import com.example.quanlichitieu.dto.response.user.UserResponse;
-import com.example.quanlichitieu.entity.TagFinance;
 import com.example.quanlichitieu.entity.User;
 import com.example.quanlichitieu.exception.user.EmailAlreadyExistException;
+import com.example.quanlichitieu.exception.user.PasswordIncorrectException;
 import com.example.quanlichitieu.exception.user.UserAlreadyExistException;
 import com.example.quanlichitieu.exception.user.UserNotFoundException;
 import com.example.quanlichitieu.repository.UserRepository;
 import com.example.quanlichitieu.service.UserService;
 import com.example.quanlichitieu.ultils.MapperUtils;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
-import java.util.ArrayList;
+
 import java.util.List;
 
+import static com.example.quanlichitieu.ultils.BCryptUtils.getPasswordEncoder;
 import static com.example.quanlichitieu.ultils.MapperUtils.MODEL_MAPPER;
 
 @RequiredArgsConstructor
 @Slf4j
 public class UserServiceImpl implements UserService {
   private final UserRepository repository;
+  private final PasswordEncoder passwordEncoder;
 
   @Override
+  @Transactional
   public UserResponse create(UserRequest request) {
     log.info("(create) request: {}", request);
 
@@ -37,11 +42,13 @@ public class UserServiceImpl implements UserService {
           request.getEmail()
     );
     User user = MapperUtils.toEntity(request, User.class);
+    user.setPassword(getPasswordEncoder().encode(request.getPassword()));
 
     return MapperUtils.toDTO(repository.save(user), UserResponse.class);
   }
 
   @Override
+  @Transactional
   public UserResponse update(UserUpdateRequest request, int id) {
     log.info("(update) request: {}", request);
 
@@ -83,11 +90,47 @@ public class UserServiceImpl implements UserService {
 
   }
 
+  @Override
+  @Transactional
+  public void changePassword(int id, ChangePasswordRequest request) {
+    log.info("(changePassword) id:{}, request:{}", id, request);
+
+    User user = find(id);
+    equalPassword(request.getPassword(), user.getPassword());
+    checkPasswordMatchForChangePassword(request.getNewPassword(), request.getConfirmPassword());
+    user.setPassword(getPasswordEncoder().encode(request.getNewPassword()));
+
+    repository.save(user);
+
+  }
+
+  @Override
+  @Transactional
+  public void active(int id) {
+    log.info("(active) id: {}", id);
+    User user = find(id);
+
+    repository.active(user.getId());
+  }
+
   private User find(int id) {
     log.info("(find) id:{}", id);
 
     return repository.findById(id).orElseThrow(UserNotFoundException::new);
   }
+
+  public void equalPassword(String passwordRaw, String passwordEncrypted) {
+    if (!getPasswordEncoder().matches(passwordRaw, passwordEncrypted)) {
+      throw new PasswordIncorrectException();
+    }
+  }
+
+  private void checkPasswordMatchForChangePassword(String newPassword, String confirmPassword) {
+    if (!newPassword.equals(confirmPassword)) {
+      throw new PasswordIncorrectException();
+    }
+  }
+
 
   private void checkExistedPreCreate(String username, String email) {
     log.info("(checkExistedPreCreate)  username: {}, email: {}", email, username);
@@ -119,5 +162,6 @@ public class UserServiceImpl implements UserService {
       throw new UserAlreadyExistException();
     }
   }
+
 
 }

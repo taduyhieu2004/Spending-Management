@@ -1,6 +1,7 @@
 package com.example.quanlichitieu.controller;
 
 import com.example.quanlichitieu.dto.ResponseGeneral;
+import com.example.quanlichitieu.dto.request.user.ChangePasswordRequest;
 import com.example.quanlichitieu.dto.request.user.UserRequest;
 import com.example.quanlichitieu.dto.request.user.UserUpdateRequest;
 
@@ -52,6 +53,20 @@ public class UserController {
     );
   }
 
+  @DeleteMapping("{id}")
+  public ResponseGeneral<Void> delete(
+        @PathVariable int id,
+        @RequestHeader(name = LANGUAGE, defaultValue = DEFAULT_LANGUAGE) String language
+  ) {
+    log.info("(delete) id:{}", id);
+
+    userService.delete(id);
+    return ResponseGeneral.ofSuccess(
+          messageService.getMessage(SUCCESS, language)
+    );
+
+  }
+
   @GetMapping("{id}")
   public ResponseGeneral<UserResponse> details(
         @PathVariable int id,
@@ -82,5 +97,34 @@ public class UserController {
           userService.list(keyword, size, page, isAll)
     );
 
+  }
+
+  @PostMapping("{id}/change-password")
+  public ResponseGeneral<Void> changePassword(
+        @PathVariable int id,
+        @RequestBody ChangePasswordRequest request,
+        @RequestHeader(name = LANGUAGE, defaultValue = DEFAULT_LANGUAGE) String language
+  ) {
+
+    log.info("(changePassword) id : {} ,request: {}", id, request);
+    userService.changePassword(id, request);
+
+    return ResponseGeneral.ofSuccess(
+          messageService.getMessage(CHANGE_PASSWORD_SUCCESS, language)
+    );
+  }
+
+  @PutMapping("{id}/active")
+  public ResponseGeneral<Void> active(
+        @PathVariable int id,
+        @RequestHeader(name = LANGUAGE, defaultValue = DEFAULT_LANGUAGE) String language
+  ) {
+
+    log.info("(active) id : {}", id);
+    userService.active(id);
+
+    return ResponseGeneral.ofSuccess(
+          messageService.getMessage(SUCCESS, language)
+    );
   }
 }

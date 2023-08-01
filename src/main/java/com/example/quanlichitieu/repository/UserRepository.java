@@ -4,6 +4,7 @@ import com.example.quanlichitieu.entity.TagFinance;
 import com.example.quanlichitieu.entity.User;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
@@ -24,4 +25,10 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 
   )
   int countSearch(String keyword);
+
+  @Modifying
+  @Query(value = "UPDATE User SET isActive = true WHERE id = :id")
+  void active(int id);
+
+
 }

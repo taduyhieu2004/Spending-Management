@@ -31,6 +31,7 @@ public class Constant {
     public static final String UPDATE_TRANSACTION_SUCCESS = "com.example.quanlichitieu.controller.TransactionController.update";
     public static final String CREATE_USER_SUCCESS = "com.example.quanlichitieu.controller.UserController.create";
     public static final String UPDATE_USER_SUCCESS = "com.example.quanlichitieu.controller.UserController.update";
+    public static final String CHANGE_PASSWORD_SUCCESS = "com.example.quanlichitieu.controller.UserController.changePassword";
 
   }
 

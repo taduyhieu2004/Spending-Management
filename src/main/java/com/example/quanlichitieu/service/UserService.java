@@ -1,5 +1,6 @@
 package com.example.quanlichitieu.service;
 
+import com.example.quanlichitieu.dto.request.user.ChangePasswordRequest;
 import com.example.quanlichitieu.dto.request.user.UserRequest;
 import com.example.quanlichitieu.dto.request.user.UserUpdateRequest;
 
@@ -16,4 +17,9 @@ public interface UserService {
   UserResponse details(int id);
 
   UserPageResponse list(String keyword, int size, int page, boolean isAll);
+
+  void changePassword(int id, ChangePasswordRequest request);
+
+  void active(int id);
+
 }
