@@ -1,23 +1,22 @@
 package com.example.quanlichitieu.dto.request.user;
 
-import com.example.quanlichitieu.validation.ValidationEmail;
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import jakarta.validation.constraints.NotBlank;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import jakarta.validation.constraints.Size;
+import lombok.*;
 
-@Getter
-@Setter
+@Data
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserUpdateRequest {
+public class ChangePasswordRequest {
   @NotBlank
-  private String fullName;
-  @ValidationEmail
-  private String email;
-
+  private String password;
+  @NotBlank
+  @Size(min = 6)
+  private String newPassword;
+  @NotBlank
+  @Size(min = 6)
+  private String confirmPassword;
 }
