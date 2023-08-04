@@ -30,5 +30,8 @@ public interface UserRepository extends JpaRepository<User, Integer> {
   @Query(value = "UPDATE User SET isActive = true WHERE id = :id")
   void active(int id);
 
+  @Query("SELECT u FROM User u WHERE username = :username")
+  User getByUsername(String username);
+
 
 }

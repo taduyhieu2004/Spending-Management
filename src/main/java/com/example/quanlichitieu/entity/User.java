@@ -22,4 +22,6 @@ public class User extends BaseEntityWithUpdater {
   private String fullName;
   private String email;
   private boolean isActive;
+
+
 }

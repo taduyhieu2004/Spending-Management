@@ -6,6 +6,7 @@ import com.example.quanlichitieu.dto.request.user.UserUpdateRequest;
 
 import com.example.quanlichitieu.dto.response.user.UserPageResponse;
 import com.example.quanlichitieu.dto.response.user.UserResponse;
+import com.example.quanlichitieu.entity.User;
 
 public interface UserService {
   UserResponse create(UserRequest request);
@@ -21,5 +22,9 @@ public interface UserService {
   void changePassword(int id, ChangePasswordRequest request);
 
   void active(int id);
+
+  void equalPassword(String passwordRaw, String passwordEncrypted);
+
+  User getByUsername(String username);
 
 }

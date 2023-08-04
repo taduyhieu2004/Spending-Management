@@ -2,17 +2,16 @@ package com.example.quanlichitieu.configuration;
 
 
 import com.example.quanlichitieu.entity.Transaction;
+import com.example.quanlichitieu.facade.AuthenticationFacadeService;
 import com.example.quanlichitieu.facade.TagFinanceFacadeService;
 import com.example.quanlichitieu.facade.TransactionFacadeService;
+import com.example.quanlichitieu.facade.impl.AuthenticationFacadeServiceImpl;
 import com.example.quanlichitieu.facade.impl.TagFinanceFacadeServiceImpl;
 import com.example.quanlichitieu.facade.impl.TransactionFacadeServiceImpl;
 import com.example.quanlichitieu.repository.TagFinanceRepository;
 import com.example.quanlichitieu.repository.TransactionRepository;
 import com.example.quanlichitieu.repository.UserRepository;
-import com.example.quanlichitieu.service.MessageService;
-import com.example.quanlichitieu.service.TagFinanceService;
-import com.example.quanlichitieu.service.TransactionService;
-import com.example.quanlichitieu.service.UserService;
+import com.example.quanlichitieu.service.*;
 import com.example.quanlichitieu.service.impl.MessageServiceImpl;
 import com.example.quanlichitieu.service.impl.TagFinanceServiceImpl;
 import com.example.quanlichitieu.service.impl.TransactionServiceImpl;
@@ -60,5 +59,6 @@ public class SpendingManagementConfiguration {
   ) {
     return new TransactionFacadeServiceImpl(transactionService, tagFinanceService, userService);
   }
+
 
 }
