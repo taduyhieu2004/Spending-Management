@@ -7,3 +7,8 @@ spring:
       - dev-local
   liquibase:
     change-log: classpath:db/master.xml
+application:
+  token:
+    key: shopsport@2023
+    expire-time-access-token: 86400000
+    expire-time-refresh-token: 86400000

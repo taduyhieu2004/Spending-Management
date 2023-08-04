@@ -119,10 +119,18 @@ public class UserServiceImpl implements UserService {
     return repository.findById(id).orElseThrow(UserNotFoundException::new);
   }
 
+  @Override
   public void equalPassword(String passwordRaw, String passwordEncrypted) {
     if (!getPasswordEncoder().matches(passwordRaw, passwordEncrypted)) {
       throw new PasswordIncorrectException();
     }
+  }
+
+  @Override
+  public User getByUsername(String username) {
+    log.info("(getByUsername) username: {}", username);
+
+    return repository.getByUsername(username);
   }
 
   private void checkPasswordMatchForChangePassword(String newPassword, String confirmPassword) {

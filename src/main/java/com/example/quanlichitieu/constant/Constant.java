@@ -41,5 +41,11 @@ public class Constant {
 
   }
 
+  public static class AuthenticationConstant {
+    public static final String CLAIM_USERNAME_KEY = "username";
+
+    public static final String CLAIM_AUTHORITIES_KEY = "authorities";
+  }
+
 
 }
