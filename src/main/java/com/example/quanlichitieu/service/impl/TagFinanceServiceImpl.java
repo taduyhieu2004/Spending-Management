@@ -9,6 +9,7 @@ import com.example.quanlichitieu.exception.tagfinance.TagFinanceNotFoundExceptio
 import com.example.quanlichitieu.repository.TagFinanceRepository;
 import com.example.quanlichitieu.service.TagFinanceService;
 import com.example.quanlichitieu.ultils.MapperUtils;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.PageRequest;
@@ -25,6 +26,7 @@ public class TagFinanceServiceImpl implements TagFinanceService {
   private final TagFinanceRepository repository;
 
   @Override
+  @Transactional
   public TagFinanceResponse create(TagFinanceRequest request) {
     log.info("(create) request: {}", request);
 
@@ -35,6 +37,7 @@ public class TagFinanceServiceImpl implements TagFinanceService {
   }
 
   @Override
+  @Transactional
   public TagFinanceResponse update(TagFinanceRequest request, int id) {
     log.info("(update) id: {}, request: {}", id, request);
 
@@ -46,6 +49,7 @@ public class TagFinanceServiceImpl implements TagFinanceService {
   }
 
   @Override
+  @Transactional
   public void delete(int id) {
     log.info("(delete) id:{}", id);
 

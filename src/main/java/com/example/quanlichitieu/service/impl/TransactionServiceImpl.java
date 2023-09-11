@@ -11,6 +11,7 @@ import com.example.quanlichitieu.exception.transaction.TransactionNotFoundExcept
 import com.example.quanlichitieu.repository.TransactionRepository;
 import com.example.quanlichitieu.service.TransactionService;
 import com.example.quanlichitieu.ultils.MapperUtils;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.PageRequest;
@@ -26,6 +27,7 @@ public class TransactionServiceImpl implements TransactionService {
   private final TransactionRepository repository;
 
   @Override
+  @Transactional
   public TransactionResponse create(TransactionRequest request) {
     log.info("(create) request: {}", request);
 
@@ -35,6 +37,7 @@ public class TransactionServiceImpl implements TransactionService {
   }
 
   @Override
+  @Transactional
   public TransactionResponse update(TransactionRequest request, int id) {
     log.info("(update) id: {}, request: {}", id, request);
 
@@ -53,6 +56,7 @@ public class TransactionServiceImpl implements TransactionService {
   }
 
   @Override
+  @Transactional
   public void delete(int id) {
     log.info("(delete) id:{}", id);
 
