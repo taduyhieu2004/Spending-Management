@@ -11,11 +11,11 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 public class TagFinanceRequest {
-  @NotBlank
+  @NotBlank(message = "name not blank")
   private String name;
-  @NotBlank
+  @NotBlank(message = "description not blank")
   private String description;
-  @NotNull
+  @NotNull(message= "not null")
   private int createdBy;
 
 }

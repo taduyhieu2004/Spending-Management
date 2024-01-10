@@ -9,6 +9,7 @@ import com.example.quanlichitieu.service.MessageService;
 import com.example.quanlichitieu.service.TagFinanceService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,12 +27,14 @@ public class TagFinanceController {
   private final TagFinanceFacadeService tagFinanceFacadeService;
 
   @PostMapping
+  @ResponseStatus(HttpStatus.CREATED)
   public ResponseGeneral<TagFinanceResponse> create(
         @RequestBody @Validated TagFinanceRequest request,
         @RequestHeader(name = LANGUAGE, defaultValue = DEFAULT_LANGUAGE) String language
   ) {
 
     log.info("(create) request: {}", request);
+
     return ResponseGeneral.ofCreated(
           messageService.getMessage(CREATE_TAG_FINANCE_SUCCESS, language),
           tagFinanceFacadeService.createTagFinance(request)

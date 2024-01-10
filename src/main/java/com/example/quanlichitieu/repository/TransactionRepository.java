@@ -1,16 +1,17 @@
 package com.example.quanlichitieu.repository;
 
-import com.example.quanlichitieu.dto.response.tagfinance.TagFinanceResponse;
+
 import com.example.quanlichitieu.dto.response.transaction.TransactionResponse;
-import com.example.quanlichitieu.entity.TagFinance;
+
 import com.example.quanlichitieu.entity.Transaction;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
-
+@Repository
 public interface TransactionRepository extends JpaRepository<Transaction, Integer> {
   @Query("SELECT new com.example.quanlichitieu.dto.response.transaction.TransactionResponse" +
         "(tr.name, tr.title, tr.description, tr.amount," +

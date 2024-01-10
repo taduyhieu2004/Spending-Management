@@ -14,7 +14,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 @EntityListeners(AuditingEntityListener.class)
 public class BaseEntity {
   @CreatedBy
-  private int createdBy;
+  private Integer createdBy;
 
   @CreatedDate
   private Long createdAt;

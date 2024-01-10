@@ -16,12 +16,18 @@ import lombok.Setter;
 public class User extends BaseEntityWithUpdater {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private int id;
+  private Integer id;
   private String username;
   private String password;
   private String fullName;
   private String email;
   private boolean isActive;
 
-
+  public User(String username, String password, String fullName, String email, boolean isActive) {
+    this.username = username;
+    this.password = password;
+    this.fullName = fullName;
+    this.email = email;
+    this.isActive = isActive;
+  }
 }

@@ -20,4 +20,10 @@ public class TagFinance extends BaseEntityWithUpdater {
   private String name;
   private String description;
 
+  public TagFinance(String name, String description) {
+    this.name = name;
+    this.description = description;
+
+  }
+
 }

@@ -20,7 +20,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-
 import java.util.List;
 
 import static com.example.quanlichitieu.ultils.BCryptUtils.getPasswordEncoder;
@@ -106,14 +105,14 @@ public class UserServiceImpl implements UserService {
 
   @Override
   @Transactional
-  public void active(int id) {
+  public void active(Integer id) {
     log.info("(active) id: {}", id);
     User user = find(id);
 
     repository.active(user.getId());
   }
 
-  private User find(int id) {
+  private User find(Integer id) {
     log.info("(find) id:{}", id);
 
     return repository.findById(id).orElseThrow(UserNotFoundException::new);

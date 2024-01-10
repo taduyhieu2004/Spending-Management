@@ -21,7 +21,7 @@ public interface UserService {
 
   void changePassword(int id, ChangePasswordRequest request);
 
-  void active(int id);
+  void active(Integer id);
 
   void equalPassword(String passwordRaw, String passwordEncrypted);
 
