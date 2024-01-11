@@ -1,0 +1,10 @@
+version: '3.8'
+services:
+  db:
+    image: mysql:8.0
+    restart: always
+    environment:
+      - MYSQL_DATABASE=docker
+      - MYSQL_ROOT_PASSWORD=hieu112004
+    ports:
+      - '3307:3306'
