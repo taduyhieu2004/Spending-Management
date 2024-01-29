@@ -47,5 +47,13 @@ public class Constant {
     public static final String CLAIM_AUTHORITIES_KEY = "authorities";
   }
 
+  public static class AuthConstant {
+    public static String TYPE_TOKEN = "Bearer ";
+    public static String AUTHORIZATION = "Authorization";
+    public static final int AUTHORIZATION_TYPE_SIZE = 7;
+    public static final String INVALID_TOKEN = "Token is invalid";
+    public static final String EXPIRED_TOKEN = "Token is expired";
+  }
+
 
 }

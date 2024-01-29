@@ -37,10 +37,10 @@ public class AuthenticationFacadeServiceImpl implements AuthenticationFacadeServ
     var claims = new HashMap<String, Object>();
     claims.put(CLAIM_USERNAME_KEY, username);
 
-    String accessToken = tokenService.generateAccessToken(
+    final String accessToken = tokenService.generateAccessToken(
           user.getId(), claims);
 
-    String refreshToken = tokenService.generateRefreshToken(
+    final String refreshToken = tokenService.generateRefreshToken(
           user.getId(),
           user.getUsername()
     );

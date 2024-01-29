@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: ${DATASOURCE_URL:jdbc:mysql://localhost:3306/spending_management?allowPublicKeyRetrieval=true&useSSL=false}
+    url: ${DATASOURCE_URL:jdbc:mysql://localhost:3306/spending_management}
     username: ${DATABASE_USERNAME:root}
     password: ${DATABASE_PASSWORD:hieu112004}
     hikari:

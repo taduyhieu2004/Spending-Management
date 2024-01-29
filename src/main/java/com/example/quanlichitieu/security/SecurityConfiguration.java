@@ -1,6 +1,7 @@
 package com.example.quanlichitieu.security;
 
 
+import com.example.quanlichitieu.filter.JwtAuthenticationFilter;
 import com.example.quanlichitieu.security.error.UnAuthenticationCustomHandler;
 import com.example.quanlichitieu.security.error.UnAuthorizationCustomHandler;
 import lombok.RequiredArgsConstructor;
@@ -13,6 +14,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
@@ -21,6 +23,7 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 @EnableWebSecurity
 @RequiredArgsConstructor
 public class SecurityConfiguration {
+  private final JwtAuthenticationFilter jwtAuthenticationFilter;
 
   private final UnAuthenticationCustomHandler unAuthenticationCustomHandler;
   private final UnAuthorizationCustomHandler unAuthorizationCustomHandler;
@@ -32,10 +35,10 @@ public class SecurityConfiguration {
           .cors().and()
           .csrf().disable()
           .authorizeHttpRequests()
-          .requestMatchers("/api/v1/**")
+          .requestMatchers("/api/v1/auth/**")
           .permitAll()
-          .anyRequest().permitAll()
           .and()
+          .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
           .exceptionHandling()
           .accessDeniedHandler(unAuthorizationCustomHandler)
           .authenticationEntryPoint(unAuthenticationCustomHandler)
