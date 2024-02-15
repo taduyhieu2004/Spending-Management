@@ -1,8 +1,8 @@
 spring:
   datasource:
     url: ${DATASOURCE_URL:jdbc:mysql://localhost:3306/spending_management}
-    username: ${DATABASE_USERNAME:root}
-    password: ${DATABASE_PASSWORD:hieu112004}
+    username: ${DATABASE_USERNAME:your_username}
+    password: ${DATABASE_PASSWORD:your_password}
     hikari:
       driver-class-name: com.mysql.cj.jdbc.Driver
       maximum-pool-size: 10
