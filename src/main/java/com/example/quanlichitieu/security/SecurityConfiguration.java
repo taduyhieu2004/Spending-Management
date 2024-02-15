@@ -9,6 +9,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -29,23 +30,23 @@ public class SecurityConfiguration {
   private final UnAuthorizationCustomHandler unAuthorizationCustomHandler;
 
 
-  @Bean
+    @Bean
   public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-    return http
-          .cors().and()
-          .csrf().disable()
-          .authorizeHttpRequests()
-          .requestMatchers("/api/v1/auth/**")
-          .permitAll()
-          .and()
+    return http.cors(AbstractHttpConfigurer::disable)
+          .csrf(AbstractHttpConfigurer::disable)
+
+          .authorizeHttpRequests(
+                request -> request
+                      .requestMatchers("api/v1/auth/**, api/v1/users").permitAll()
+                      .anyRequest().authenticated()
+          )
+
+          .sessionManagement(manager -> manager.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
           .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
-          .exceptionHandling()
-          .accessDeniedHandler(unAuthorizationCustomHandler)
-          .authenticationEntryPoint(unAuthenticationCustomHandler)
-          .and().sessionManagement()
-          .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-          .and().build();
+          .build();
   }
+
+
 
   @Bean
   CorsConfigurationSource corsConfigurationSource() {
@@ -57,6 +58,7 @@ public class SecurityConfiguration {
     source.registerCorsConfiguration("/**", configuration);
     return source;
   }
+
   @Bean
   public PasswordEncoder passwordEncoder() {
     return new BCryptPasswordEncoder();

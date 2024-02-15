@@ -16,6 +16,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Objects;
 
 import static com.example.quanlichitieu.constant.Constant.AuthConstant.*;
@@ -54,8 +55,9 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     try {
       var userid = jwtTokenService.getSubjectFromToken(jwtToken);
       var username = jwtTokenService.getUsernameFromToken(jwtToken);
+
       var usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(
-            userid, username
+            userid, username,new ArrayList<>()
       );
       SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
       filterChain.doFilter(request, response);
@@ -65,6 +67,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
       response.sendError(HttpStatus.UNAUTHORIZED.value(), EXPIRED_TOKEN);
     }
 
-    filterChain.doFilter(request, response);
+    filterChain.doFilter(request,response);
+
+
   }
 }
