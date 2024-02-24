@@ -1,8 +1,11 @@
 package com.example.quanlichitieu.configuration;
 
+import com.example.quanlichitieu.filter.JwtAuthenticationFilter;
 import com.example.quanlichitieu.repository.TagFinanceRepository;
 import com.example.quanlichitieu.repository.TagFinanceRepositoryTest;
+import com.example.quanlichitieu.service.JwtTokenService;
 import com.example.quanlichitieu.service.TagFinanceService;
+import com.example.quanlichitieu.service.impl.JwtTokenServiceImpl;
 import com.example.quanlichitieu.service.impl.TagFinanceServiceImpl;
 import jakarta.persistence.EntityManagerFactory;
 import org.springframework.boot.test.context.TestConfiguration;
@@ -36,6 +39,12 @@ public class Configuration {
   public TagFinanceService tagFinanceService(TagFinanceRepository repository) {
     return new TagFinanceServiceImpl(repository);
   }
+
+
+ @Bean
+ public JwtTokenService jwtTokenService(){
+    return new JwtTokenServiceImpl();
+ }
 
   @Bean
   public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {

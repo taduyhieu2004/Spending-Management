@@ -6,6 +6,7 @@ import com.example.quanlichitieu.dto.response.tagfinance.TagFinanceResponse;
 import com.example.quanlichitieu.entity.TagFinance;
 import com.example.quanlichitieu.exception.tagfinance.TagFinanceAlreadyExistException;
 
+import com.example.quanlichitieu.exception.tagfinance.TagFinanceNotFoundException;
 import com.example.quanlichitieu.repository.TagFinanceRepository;
 import com.example.quanlichitieu.repository.TagFinanceRepositoryTest;
 import org.junit.jupiter.api.Assertions;
@@ -40,6 +41,7 @@ public class TagFinanceServiceTest {
           "string"
     );
   }
+  private static int MOCK_ID = 100;
 
   @Test
   public void testCreate_WhenNameTagFinanceAlreadyExists_ThrowException(){
@@ -62,5 +64,16 @@ public class TagFinanceServiceTest {
 
     Assertions.assertEquals(mockEntity.getName(),response.getName());
     Assertions.assertEquals(mockEntity.getDescription(),response.getDescription());
+  }
+
+  @Test
+  public void testUpdate_WhenIdNotFound_ThrowException(){
+    TagFinanceRequest mockRequest = mockTagFinanceRequest();
+
+
+    Mockito.when(repository.findById(MOCK_ID)).thenThrow(new TagFinanceNotFoundException());
+
+    Assertions.assertThrows(TagFinanceNotFoundException.class,()-> tagFinanceService.update(mockRequest, MOCK_ID));
+
   }
 }
