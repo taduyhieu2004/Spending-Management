@@ -1,12 +1,9 @@
 package com.example.quanlichitieu.service.impl;
 
 import com.example.quanlichitieu.dto.request.TransactionRequest;
-import com.example.quanlichitieu.dto.request.user.ChangePasswordRequest;
-import com.example.quanlichitieu.dto.response.tagfinance.TagFinancePageResponse;
 import com.example.quanlichitieu.dto.response.transaction.TransactionPageResponse;
 import com.example.quanlichitieu.dto.response.transaction.TransactionResponse;
 import com.example.quanlichitieu.entity.Transaction;
-import com.example.quanlichitieu.exception.tagfinance.TagFinanceNotFoundException;
 import com.example.quanlichitieu.exception.transaction.TransactionNotFoundException;
 import com.example.quanlichitieu.repository.TransactionRepository;
 import com.example.quanlichitieu.service.TransactionService;
@@ -18,8 +15,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 
 import java.util.List;
-
-import static com.example.quanlichitieu.ultils.MapperUtils.MODEL_MAPPER;
 
 @Slf4j
 @RequiredArgsConstructor

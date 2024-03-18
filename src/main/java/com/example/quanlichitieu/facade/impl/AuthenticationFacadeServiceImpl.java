@@ -10,7 +10,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.stereotype.Service;
+
 
 import java.util.HashMap;
 
@@ -19,7 +19,7 @@ import static com.example.quanlichitieu.constant.Constant.AuthenticationConstant
 
 @Slf4j
 @RequiredArgsConstructor
-@Service
+
 public class AuthenticationFacadeServiceImpl implements AuthenticationFacadeService {
   private final UserService userService;
   private final JwtTokenService tokenService;
