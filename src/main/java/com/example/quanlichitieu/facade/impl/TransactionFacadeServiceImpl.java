@@ -12,8 +12,10 @@ import com.example.quanlichitieu.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
-@Slf4j
+
 @RequiredArgsConstructor
+@Slf4j
+
 public class TransactionFacadeServiceImpl implements TransactionFacadeService {
   private final TransactionService transactionService;
   private final TagFinanceService tagFinanceService;
