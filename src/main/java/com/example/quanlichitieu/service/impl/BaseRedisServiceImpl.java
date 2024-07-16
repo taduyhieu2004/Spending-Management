@@ -1,6 +1,7 @@
 package com.example.quanlichitieu.service.impl;
 
 import com.example.quanlichitieu.service.BaseRedisService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.redis.core.HashOperations;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;

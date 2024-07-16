@@ -1,10 +1,52 @@
-version: '3.8'
+version: "3.9"
 services:
-  db:
-    image: mysql:8.0
-    restart: always
-    environment:
-      - MYSQL_DATABASE=docker
-      - MYSQL_ROOT_PASSWORD=hieu112004
+  spending-management:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    container_name: spending-management-dh-v1
     ports:
-      - '3307:3306'
+      - '8080:8080'
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql-dh:3306/spending_management
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: hieu112004
+      SPRING_REDIS_HOST: redis
+      SPRING_REDIS_PORT: 6379
+    depends_on:
+      - mysql
+      - redis
+    networks:
+      - dh-network
+
+  mysql:
+    image: mysql:8.0
+    container_name: mysql-dh
+    environment:
+      MYSQL_ROOT_PASSWORD: hieu112004
+      MYSQL_DATABASE: spending_management
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql-data:/var/lib/mysql
+    networks:
+      - dh-network
+
+
+  redis:
+    image: redis:latest
+    container_name: redis-dh
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
+    networks:
+      - dh-network
+
+volumes:
+  mysql-data:
+  redis-data:
+
+networks:
+  dh-network:
+    external: true

@@ -1,6 +1,10 @@
 package com.example.quanlichitieu.controller;
 
+import com.example.quanlichitieu.entity.TagFinance;
 import com.example.quanlichitieu.service.BaseRedisService;
+import com.example.quanlichitieu.service.BaseRedisServiceV2;
+import com.ncsgroup.inventory.client.dto.WarehouseRequest;
+import com.ncsgroup.inventory.client.dto.product.ProductRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,10 +15,13 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class RedisController {
 
-  private final BaseRedisService redisService;
+  private final BaseRedisServiceV2<String, String, Integer> redisService;
 
   @PostMapping
-  public void set(){
-    redisService.set("hihi","haha");
+  public String set() {
+    redisService.set("redis",1);
+    System.out.println(new ProductRequest());
+    return "ok";
+
   }
 }
